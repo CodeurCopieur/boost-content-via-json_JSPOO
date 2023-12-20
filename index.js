@@ -5,18 +5,20 @@ const jsonData = {
   "dateFin": 1706655653000,
   "nameCampaign": "temps_forts",
   "heroBanner": {
-    "tagLabel": "txtTF",
-    "tagDate": "dateTF",
-    "titleLabel": "<span style=color:#ff8fc5>Dès <span class=stl_taux>0,49 %</span> TAEG FIXE,</span><br>boostez vos envies de projets. TF</span>",
-    "baselineLabel": "txtBaselineFT",
-    "ctaLabel": ["textTF", "textTF.html"],
-    "ctaUrl": "textTF.html",
-    "noticeLabel": "noticeLabelTF",
-    "visualUrl": {
-      "webpx2": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg",
-      "webpx1": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg",
-      "jpgx1": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg"
-    }
+
+  },
+  "tagLabel": "txtTF",
+  "tagDate": "dateTF",
+  "titleLabel": "<span style=color:#ff8fc5>Dès <span class=stl_taux>0,49 %</span> TAEG FIXE,</span><br>boostez vos envies de projets. TF</span>",
+  "baselineLabel": "txtBaselineFT",
+  "ctaLabel": "ctaLabel",
+  "ctaUrl": "ctaUrl",
+  "ctaUrlImg": "textTF.html",
+  "noticeLabel": "noticeLabelTF",
+  "visualUrl": {
+    "webpx2": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg",
+    "webpx1": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg",
+    "jpgx1": "/static/Particuliers/assets/campagne/534559452-BannerFicheProd_x1.jpg"
   }
 };
 
@@ -45,20 +47,14 @@ class ElementFinder {
             // Vérifier si l'élément est une image
             if (element.tagName.toLowerCase() === 'img') {
               console.log(`Image trouvée pour la clé "${key}":`, element);
+              element.src = json[key]
             }
             // Vérifier si l'élément est un lien
             else if (element.tagName.toLowerCase() === 'a' && element.hasAttribute('href')) {
-              //  // Si ctaLabel est un tableau
-              //  if (key === 'ctaLabel' && Array.isArray(json[key])) {
-              //   // Assigne la première valeur du tableau comme texte
-              //   element.textContent = json[key][0];
-              //   // Assigne la deuxième valeur du tableau comme href
-              //   element.setAttribute('href', json[key][1]);
-              // } else {
-              //   // Si ce n'est pas un tableau, ajoute la valeur de la clé comme texte
-              //   element.textContent = json[key];
-              // }
-              // Afficher le résultat dans la console
+
+              element.textContent = json[key];
+              element.href = json["ctaUrl"];
+
               console.log(`Lien trouvé pour la clé "${key}":`, element);
             }
             // Cas par défaut (autres types d'éléments)
@@ -75,7 +71,7 @@ class ElementFinder {
 }
 
 // Éléments à exclure (exemple)
-const elementsToExclude = ['id', 'dateDebut', 'dateFin', 'nameCampaign'];
+const elementsToExclude = ['id', 'dateDebut', 'dateFin', 'nameCampaign', 'ctaUrl'];
 
 // Créer une instance de la classe ElementFinder
 const elementFinder = new ElementFinder(jsonData);
